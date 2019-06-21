@@ -1,10 +1,10 @@
-// package imageProcess
-package main
+package imageProcess
 
 import (
 	"fmt"
 	"image"
 	"image/color"
+	"image/draw"
 	"image/png"
 	"io/ioutil"
 	"os"
@@ -14,6 +14,7 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
+// フォント読み込み
 func fontload(fname string) []byte {
 	file, err := os.Open(fname)
 	defer file.Close()
@@ -31,6 +32,7 @@ func fontload(fname string) []byte {
 	return bytes
 }
 
+// 横書きの文字を入れる
 func AddHorizontalLabel(img *image.RGBA, leftX, bottomY int, label, fontPath string, fontSize float64, fontColor color.Color) error {
 	ft, err := truetype.Parse(fontload(fontPath))
 	if err != nil {
@@ -54,31 +56,51 @@ func AddHorizontalLabel(img *image.RGBA, leftX, bottomY int, label, fontPath str
 	return nil
 }
 
-func AddVerticalLabel() error {
+// 縦書きの文字を入れる
+func AddVerticalLabel(img *image.RGBA, leftX, topY int, label, fontPath string, fontSize float64, fontColor color.Color) error {
+	charBottomY := topY + int(fontSize)
+
+	for _, char := range label {
+		err := AddHorizontalLabel(img, leftX, charBottomY, string(char), fontPath, fontSize, fontColor)
+
+		if err != nil {
+			return err
+		}
+
+		charBottomY += int(fontSize)
+	}
+
 	return nil
 }
 
-func main() {
-	img := image.NewRGBA(image.Rect(0, 0, 500, 500))
-
-	err := AddHorizontalLabel(img, 0, 50, "テストだよ", "fonts-japanese-gothic.ttf", 30.0, color.RGBA{0, 255, 0, 255})
-
-	if err != nil {
-		fmt.Println("error:file\n", err)
-		return
-	}
-
+//画像を保存
+func SaveImage(img *image.RGBA, filePath string) error {
 	//ファイル作成と後始末
-	file, err := os.Create("test.png")
+	file, err := os.Create(filePath)
 	defer file.Close()
+
 	if err != nil {
-		fmt.Println("error:file\n", err)
-		return
+		return err
 	}
 
 	// PNG出力
 	if err := png.Encode(file, img); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
+		return err
 	}
+
+	return nil
+}
+
+// 背景色を追加
+func SetBackgroundColor(img *image.RGBA, color image.Image) {
+	draw.Draw(img, img.Bounds(), color, image.ZP, draw.Src)
+}
+
+// 新規画像作成
+func NewImage(width int, height int) *image.RGBA {
+	return image.NewRGBA(image.Rect(0, 0, width, height))
+}
+
+// 外枠を作成 TODO
+func AddBorder(img *image.RGBA, color image.Image, thickness int) {
 }

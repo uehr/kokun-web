@@ -1,28 +1,28 @@
 package main
 
 import (
-	"image"
-	"image/png"
-	"os"
+	"fmt"
 
 	imageProcess "github.com/uehr/kokun/pkg/imageProcess"
-	// senryu "github.com/uehr/kokun/pkg/senryu"
+	senryu "github.com/uehr/kokun/pkg/senryu"
 )
 
 func main() {
-	img := image.NewRGBA(image.Rect(0, 0, 300, 300))
-	fontSize := 30.0
+	sen := senryu.Senryu{}
 
-	imageProcess.AddVerticalLabel(img, 0, 0, "五時過ぎた カモンベイベー USAばらし", "fonts-japanese-mincho.ttf", fontSize)
+	sen.FirstSentence = "first"
+	sen.SecondSentence = "second"
+	sen.ThirdSentence = "third"
 
-	f, err := os.Create("hello-go.png")
+	option := senryu.SenryuImageOption{}
+	senryuImage, err := senryu.CreateImage(&sen, &option)
+
+	// err := imageProcess.AddVerticalLabel(img, 50, 50, "テストだーよ", "fonts-japanese-gothic.ttf", 30.0, color.RGBA{255, 0, 0, 255})
 
 	if err != nil {
-		panic(err)
+		fmt.Println("error:file\n", err)
+		return
 	}
 
-	defer f.Close()
-	if err := png.Encode(f, img); err != nil {
-		panic(err)
-	}
+	imageProcess.SaveImage(senryuImage, "senryu.png")
 }
