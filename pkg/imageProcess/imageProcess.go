@@ -8,6 +8,7 @@ import (
 	"image/png"
 	"io/ioutil"
 	"os"
+	"unicode/utf8"
 
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/font"
@@ -56,6 +57,50 @@ func AddHorizontalLabel(img *image.RGBA, leftX, bottomY int, label, fontPath str
 	return nil
 }
 
+func AddVerticalBottomAlignLabel(img *image.RGBA, leftX int, label, fontPath string, fontSize float64, fontColor color.Color, marginPx int) error {
+	size := GetSize(img)
+	labelLength := utf8.RuneCountInString(label)
+	labelHeight := labelLength * int(fontSize)
+	y := size.Y - labelHeight - marginPx
+
+	err := AddVerticalLabel(img, leftX, y, label, fontPath, fontSize, fontColor)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func AddVerticalCenterAlignLabel(img *image.RGBA, leftX int, label, fontPath string, fontSize float64, fontColor color.Color, marginPx int) error {
+	size := GetSize(img)
+	labelLength := utf8.RuneCountInString(label)
+	labelHeight := labelLength * int(fontSize)
+	padding := size.Y - marginPx*2 - labelHeight
+	y := padding / 2
+
+	err := AddVerticalLabel(img, leftX, y, label, fontPath, fontSize, fontColor)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func AddVerticalTopAlignLabel(img *image.RGBA, leftX int, label, fontPath string, fontSize float64, fontColor color.Color, marginPx int) error {
+	y := marginPx
+
+	err := AddVerticalLabel(img, leftX, y, label, fontPath, fontSize, fontColor)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func GetSize(img *image.RGBA) image.Point {
+	return img.Bounds().Size()
+}
+
 // 縦書きの文字を入れる
 func AddVerticalLabel(img *image.RGBA, leftX, topY int, label, fontPath string, fontSize float64, fontColor color.Color) error {
 	charBottomY := topY + int(fontSize)
@@ -101,6 +146,31 @@ func NewImage(width int, height int) *image.RGBA {
 	return image.NewRGBA(image.Rect(0, 0, width, height))
 }
 
-// 外枠を作成 TODO
-func AddBorder(img *image.RGBA, color image.Image, thickness int) {
+// 外枠を作成
+// func AddBorder(img *image.RGBA, color image.Image, thicknessPx int) {
+// 	size := GetSize(img)
+// }
+
+// HLine draws a horizontal line
+func HLine(img *image.RGBA, x1, y, x2 int, col color.Color) {
+	for ; x1 <= x2; x1++ {
+		img.Set(x1, y, col)
+	}
+}
+
+// VLine draws a veritcal line
+func VLine(img *image.RGBA, x, y1, y2 int, col color.Color) {
+	for ; y1 <= y2; y1++ {
+		img.Set(x, y1, col)
+	}
+}
+
+// Rect draws a rectangle utilizing HLine() and VLine()
+func Rect(img *image.RGBA, x1, y1, x2, y2, thicknessPx int, col color.Color) {
+	for i := 0; i < thicknessPx; i++ {
+		HLine(img, x1+i, y1+i, x2-i, col)
+		HLine(img, x1+i, y2-i, x2-i, col)
+		VLine(img, x1+i, y1+i, y2-i, col)
+		VLine(img, x2-i, y1+i, y2-i, col)
+	}
 }

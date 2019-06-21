@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	imageProcess "github.com/uehr/kokun/pkg/imageProcess"
@@ -8,16 +9,16 @@ import (
 )
 
 func main() {
+	flag.Parse()
 	sen := senryu.Senryu{}
 
-	sen.FirstSentence = "first"
-	sen.SecondSentence = "second"
-	sen.ThirdSentence = "third"
+	sen.FirstSentence = flag.Arg(0)
+	sen.SecondSentence = flag.Arg(1)
+	sen.ThirdSentence = flag.Arg(2)
+	sen.AuthorName = flag.Arg(3)
 
 	option := senryu.SenryuImageOption{}
 	senryuImage, err := senryu.CreateImage(&sen, &option)
-
-	// err := imageProcess.AddVerticalLabel(img, 50, 50, "テストだーよ", "fonts-japanese-gothic.ttf", 30.0, color.RGBA{255, 0, 0, 255})
 
 	if err != nil {
 		fmt.Println("error:file\n", err)
