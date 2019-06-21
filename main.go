@@ -20,6 +20,8 @@ func main() {
 	option := senryu.SenryuImageOption{}
 	senryuImage, err := senryu.CreateImage(&sen, &option)
 
+	imageProcess.PasteImage(senryuImage, 100, 100, "hoge.jpg")
+
 	if err != nil {
 		fmt.Println("error:file\n", err)
 		return

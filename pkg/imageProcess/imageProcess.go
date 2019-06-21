@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"image/jpeg"
 	"image/png"
 	"io/ioutil"
 	"os"
@@ -14,6 +15,11 @@ import (
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
+
+func init() {
+	image.RegisterFormat("jpeg", "jpeg", jpeg.Decode, jpeg.DecodeConfig)
+	image.RegisterFormat("png", "png", png.Decode, png.DecodeConfig)
+}
 
 // フォント読み込み
 func fontload(fname string) []byte {
@@ -173,4 +179,23 @@ func Rect(img *image.RGBA, x1, y1, x2, y2, thicknessPx int, col color.Color) {
 		VLine(img, x1+i, y1+i, y2-i, col)
 		VLine(img, x2-i, y1+i, y2-i, col)
 	}
+}
+
+// 画像を貼り付け
+func PasteImage(img *image.RGBA, leftX, topY int, imagePath string) error {
+	file, err := os.Open(imagePath)
+	if err != nil {
+		return err
+	}
+
+	decoded, _, err := image.Decode(file)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	offset := image.Pt(leftX, topY)
+	draw.Draw(img, decoded.Bounds().Add(offset), decoded, image.ZP, draw.Src)
+
+	return nil
 }
