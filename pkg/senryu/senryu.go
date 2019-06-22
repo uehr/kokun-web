@@ -20,13 +20,13 @@ const DefaultAuthorNameFontSize = 50
 const DefaultFontPath = "衡山毛筆フォント.ttf"
 
 const DefaultMarginPx = 70
-const DefaultThickBorderPx = 35
+const DefaultThickBorderPx = 50
 const DefaultThinBorderPx = 10
 
 var DefaultBackgroundColor = image.White
 var DefaultFontColor = color.Black
 var DefaultThickBorderColor = color.RGBA{0, 128, 79, 255}
-var DefaultThinBorderColor = color.RGBA{178, 179, 0, 255}
+var DefaultThinBorderColor = color.RGBA{255, 215, 0, 255}
 
 type Senryu struct {
 	FirstSentence  string

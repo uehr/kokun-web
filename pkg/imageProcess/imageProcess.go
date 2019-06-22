@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/draw"
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
@@ -12,6 +11,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/golang/freetype/truetype"
+	"golang.org/x/image/draw"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
@@ -152,11 +152,6 @@ func NewImage(width int, height int) *image.RGBA {
 	return image.NewRGBA(image.Rect(0, 0, width, height))
 }
 
-// 外枠を作成
-// func AddBorder(img *image.RGBA, color image.Image, thicknessPx int) {
-// 	size := GetSize(img)
-// }
-
 // HLine draws a horizontal line
 func HLine(img *image.RGBA, x1, y, x2 int, col color.Color) {
 	for ; x1 <= x2; x1++ {
@@ -182,7 +177,7 @@ func Rect(img *image.RGBA, x1, y1, x2, y2, thicknessPx int, col color.Color) {
 }
 
 // 画像を貼り付け
-func PasteImage(img *image.RGBA, leftX, topY int, imagePath string) error {
+func PasteImage(img *image.RGBA, imageWidth, imageHeight, leftX, topY int, imagePath string) error {
 	file, err := os.Open(imagePath)
 	if err != nil {
 		return err
@@ -194,8 +189,17 @@ func PasteImage(img *image.RGBA, leftX, topY int, imagePath string) error {
 	}
 	defer file.Close()
 
+	Resize(&decoded, imageWidth, imageHeight)
+
 	offset := image.Pt(leftX, topY)
 	draw.Draw(img, decoded.Bounds().Add(offset), decoded, image.ZP, draw.Src)
 
 	return nil
+}
+
+func Resize(img *image.Image, toWidth, toHeight int) {
+	rctSrc := (*img).Bounds()
+	imgDst := image.NewRGBA(image.Rect(0, 0, toWidth, toHeight))
+	draw.CatmullRom.Scale(imgDst, imgDst.Bounds(), *img, rctSrc, draw.Over, nil)
+	*img = imgDst
 }

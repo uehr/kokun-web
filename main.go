@@ -3,10 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image/color"
 
 	imageProcess "github.com/uehr/kokun/pkg/imageProcess"
 	senryu "github.com/uehr/kokun/pkg/senryu"
 )
+
+const AppURL = "https://kokun.herokuapp.com"
 
 func main() {
 	flag.Parse()
@@ -20,7 +23,7 @@ func main() {
 	option := senryu.SenryuImageOption{}
 	senryuImage, err := senryu.CreateImage(&sen, &option)
 
-	imageProcess.PasteImage(senryuImage, 100, 100, "hoge.jpg")
+	imageProcess.AddHorizontalLabel(senryuImage, option.ThickBorderPx, option.SenryuHeight-option.ThinBorderPx, AppURL, "font.ttf", 30, color.White)
 
 	if err != nil {
 		fmt.Println("error:file\n", err)
