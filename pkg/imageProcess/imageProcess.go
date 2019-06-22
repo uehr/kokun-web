@@ -16,6 +16,8 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
+const verticalHyphen = '│'
+
 func init() {
 	image.RegisterFormat("jpeg", "jpeg", jpeg.Decode, jpeg.DecodeConfig)
 	image.RegisterFormat("png", "png", png.Decode, png.DecodeConfig)
@@ -112,6 +114,10 @@ func AddVerticalLabel(img *image.RGBA, leftX, topY int, label, fontPath string, 
 	charBottomY := topY + int(fontSize)
 
 	for _, char := range label {
+		if char == '〜' || char == '~' || char == '-' {
+			char = verticalHyphen
+		}
+
 		err := AddHorizontalLabel(img, leftX, charBottomY, string(char), fontPath, fontSize, fontColor)
 
 		if err != nil {

@@ -23,7 +23,7 @@ func main() {
 	option := senryu.SenryuImageOption{}
 	senryuImage, err := senryu.CreateImage(&sen, &option)
 
-	imageProcess.AddHorizontalLabel(senryuImage, option.ThickBorderPx, option.SenryuHeight-option.ThinBorderPx, AppURL, "font.ttf", 30, color.White)
+	imageProcess.AddHorizontalLabel(senryuImage, option.ThickBorderPx, option.SenryuHeight-option.ThinBorderPx, AppURL, "衡山毛筆フォント.ttf", 30, color.White)
 
 	if err != nil {
 		fmt.Println("error:file\n", err)
