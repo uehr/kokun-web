@@ -1,34 +1,22 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"image/color"
+	"log"
+	"net/http"
+	"os"
 
-	imageProcess "github.com/uehr/kokun/pkg/imageProcess"
-	senryu "github.com/uehr/kokun/pkg/senryu"
+	"github.com/uehr/kokun/pkg/handler"
 )
 
-const AppURL = "https://kokun.herokuapp.com"
-
 func main() {
-	flag.Parse()
-	sen := senryu.Senryu{}
-
-	sen.FirstSentence = flag.Arg(0)
-	sen.SecondSentence = flag.Arg(1)
-	sen.ThirdSentence = flag.Arg(2)
-	sen.AuthorName = flag.Arg(3)
-
-	option := senryu.SenryuImageOption{}
-	senryuImage, err := senryu.CreateImage(&sen, &option)
-
-	imageProcess.AddHorizontalLabel(senryuImage, option.ThickBorderPx, option.SenryuHeight-option.ThinBorderPx, AppURL, "衡山毛筆フォント.ttf", 30, color.White)
-
-	if err != nil {
-		fmt.Println("error:file\n", err)
-		return
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("$PORT must be set")
 	}
 
-	imageProcess.SaveImage(senryuImage, "senryu.png")
+	http.HandleFunc("/", handler.Index)
+	http.HandleFunc("/senryu", handler.SenryuApi)
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))
+	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("scripts/"))))
+	http.ListenAndServe(":"+port, nil)
 }
