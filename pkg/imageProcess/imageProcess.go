@@ -1,6 +1,7 @@
 package imageProcess
 
 import (
+	"encoding/base64"
 	"fmt"
 	"image"
 	"image/color"
@@ -11,6 +12,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/golang/freetype/truetype"
+	"github.com/google/uuid"
 	"golang.org/x/image/draw"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
@@ -114,7 +116,7 @@ func AddVerticalLabel(img *image.RGBA, leftX, topY int, label, fontPath string, 
 	charBottomY := topY + int(fontSize)
 
 	for _, char := range label {
-		if char == '〜' || char == '~' || char == '-' {
+		if char == '〜' || char == '~' || char == '-' || char == 'ー' {
 			char = verticalHyphen
 		}
 
@@ -203,9 +205,40 @@ func PasteImage(img *image.RGBA, imageWidth, imageHeight, leftX, topY int, image
 	return nil
 }
 
+// 画像をリサイズ
 func Resize(img *image.Image, toWidth, toHeight int) {
 	rctSrc := (*img).Bounds()
 	imgDst := image.NewRGBA(image.Rect(0, 0, toWidth, toHeight))
 	draw.CatmullRom.Scale(imgDst, imgDst.Bounds(), *img, rctSrc, draw.Over, nil)
 	*img = imgDst
+}
+
+// ランダムなファイル名を生成
+func NewUniqueFileName(extension string) string {
+	return uuid.New().String() + "." + extension
+}
+
+// 画像ファイルをbase64へ変換
+func ImageFileBase64Encode(filePath string) string {
+	file, _ := os.Open(filePath)
+	defer file.Close()
+
+	fi, _ := file.Stat()
+	size := fi.Size()
+
+	data := make([]byte, size)
+	file.Read(data)
+
+	return base64.StdEncoding.EncodeToString(data)
+}
+
+// 画像をbase64へ変換
+func ImageBase64Encode(img *image.RGBA) string {
+	filePath := NewUniqueFileName("png")
+	SaveImage(img, filePath)
+
+	base64Img := ImageFileBase64Encode(filePath)
+	os.Remove(filePath)
+
+	return base64Img
 }
