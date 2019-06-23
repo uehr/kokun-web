@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/uehr/kokun/pkg/handler"
+	"github.com/uehr/kokun-web/handler"
 )
 
 func main() {
