@@ -6,8 +6,9 @@
 }
 
 #site-header {
+    position: fixed;
     height: var(--header-height);
     width: 100vw;
     background-color: var(--body-color1);
-    position: fixed;
+    top: 0;
 }
