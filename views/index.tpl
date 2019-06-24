@@ -13,6 +13,8 @@
 
         <script src="../scripts/uikit/uikit.min.js"></script>
         <script src="../scripts/uikit/uikit-icons.min.js"></script>
+        <script src="../scripts/senryu.js"></script>
+        <script src="../scripts/index.js"></script>
     </head>
 
     <body>
@@ -27,7 +29,5 @@
 
         {{.senryuImage}}
 
-        <script src="../scripts/senryu.js"></script>
-        <script src="../scripts/index.js"></script>
 </body>
 </html>
