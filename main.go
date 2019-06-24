@@ -15,6 +15,7 @@ func main() {
 	}
 
 	http.HandleFunc("/", handler.Index)
+	http.HandleFunc("/senryu", handler.SenryuApi)
 
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("scripts/"))))
