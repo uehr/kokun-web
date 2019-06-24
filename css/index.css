@@ -1,2 +1,7 @@
-* {
+#test-form {
+    position: static;
+}
+
+#contents {
+    padding-top: var(--header-height);
 }

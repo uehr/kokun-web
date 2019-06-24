@@ -1,0 +1,13 @@
+#site-logo {
+    height: 80%;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#site-header {
+    height: var(--header-height);
+    width: 100vw;
+    background-color: var(--body-color1);
+    position: fixed;
+}
