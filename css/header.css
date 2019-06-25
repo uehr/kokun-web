@@ -1,3 +1,15 @@
+#site-header {
+    position: fixed;
+    height: var(--header-height);
+    width: 100vw;
+    background-color: var(--body-color1);
+    top: 0;
+    z-index: 100;
+}
+
+#site-description {
+}
+
 #site-logo {
     height: 80%;
     display: block;
@@ -5,10 +17,22 @@
     margin-bottom: auto;
 }
 
-#site-header {
-    position: fixed;
-    height: var(--header-height);
-    width: 100vw;
+.example-image {
+    height: 60vh;
+    width: auto;
+}
+
+.swiper-container {
     background-color: var(--body-color1);
-    top: 0;
+    padding-bottom: 5vh !important;
+}
+
+.swiper-slide {
+    text-align: center;
+}
+
+/* 全体のスタイル */
+.swiper-wrapper {
+	width: 100%;
+	height: 250px;
 }
