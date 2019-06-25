@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru&display=swap');
+
 :root {
-    --theme-color: #2989FF;
+    --theme-color: #00e091;
     --body-color1: #1E1F26;
     --body-color2: #EEEEEE;
     --body-color3: #2C2C33;
@@ -22,4 +24,5 @@ html {
 
 * {
     margin: 0px;
+    font-family: 'Kosugi Maru', sans-serif;
 }
