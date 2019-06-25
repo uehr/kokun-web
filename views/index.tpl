@@ -12,17 +12,13 @@
         <link rel="stylesheet" type="text/css" href="../css/index.css">
         <link rel="stylesheet" type="text/css" href="../css/header.css">
         <link rel="stylesheet" type="text/css" href="../css/root.css" />
-        <link rel="stylesheet" type="text/css" href="../css/uikit/uikit.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/swiper/swiper.css" />
 
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script src="../scripts/uikit/uikit.min.js"></script>
-        <script src="../scripts/uikit/uikit-icons.min.js"></script>
         <script src="../scripts/senryu.js"></script>
         <script src="../scripts/index.js"></script>
         <script src="../scripts/slider.js"></script>
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+        <script src="../scripts/swiper/swiper.min.js"></script>
     </head>
 
     <body>
@@ -41,37 +37,46 @@
 		            <div class="swiper-slide">
                         <img src="../media/examples/1.png" class="example-image">
                     </div>
+
 		            <div class="swiper-slide">
                         <img src="../media/examples/2.png" class="example-image">
                     </div>
+
 		            <div class="swiper-slide">
                         <img src="../media/examples/3.png" class="example-image">
                     </div>
+
 		            <div class="swiper-slide">
                         <img src="../media/examples/4.png" class="example-image">
                     </div>
+
 		            <div class="swiper-slide">
                         <img src="../media/examples/5.png" class="example-image">
                     </div>
+
 	            </div>
 
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-            <!-- Swiper END -->
+                <div class="swiper-button-prev swiper-button-white"></div>
+                <div class="swiper-button-next swiper-button-white"></div>
 
+            </div>
+
+            <!-- Swiper END -->
             <div id="senryu-form">
-                <div class="uk-margin-top">
-                    <input id="first-sentence" class="uk-input uk-form-large" type="text" placeholder="五">
-                    <input id="second-sentence" class="uk-input uk-form-large" type="text" placeholder="七">
-                    <input id="third-sentence" class="uk-input uk-form-large" type="text" placeholder="五">
-                    <input id="author-name" class="uk-input uk-form-large" type="text" placeholder="名前">
+                <div >
+                    <input id="first-sentence" type="text" placeholder="五">
+                    <input id="second-sentence" type="text" placeholder="七">
+                    <input id="third-sentence" type="text" placeholder="五">
+                    <input id="author-name" type="text" placeholder="名前">
                 </div>
 
-                <button id="senryu-create-button" class="uk-button uk-button-primary uk-button-large uk-width-1-1">作成</button>
+                <button id="senryu-create-button">作成</button>
             </form>
 
-            <img id="senryu-image" src="">
+            <div id="result-popup">
+                <img id="senryu-image" src="">
+            </div>
+
         </div>
 
 </body>
