@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="../media/favicon.ico">
+
+    <title>kokun</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/header.css">
+    <link rel="stylesheet" type="text/css" href="../css/root.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="../css/swiper/swiper.css" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../scripts/senryu.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/slider.js"></script>
+    <script src="../scripts/modal.js"></script>
+    <script src="../scripts/swiper/swiper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="site-header">
+        <img src="../media/kokun-long.png" id="site-logo">
+    </div>
+
+    <div id="contents">
+
+        <div class="swiper-container">
+            <h1 id="site-description" class="headline"><span>あなたの<span class="theme-color">俳句</span>/<span
+                        class="theme-color">川柳</span>を画像化</span></h1>
+
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../media/examples/1.png" class="example-image">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../media/examples/2.png" class="example-image">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../media/examples/3.png" class="example-image">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../media/examples/4.png" class="example-image">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="../media/examples/5.png" class="example-image">
+                </div>
+
+            </div>
+
+            <div class="swiper-button-prev swiper-button-white"></div>
+            <div class="swiper-button-next swiper-button-white"></div>
+
+        </div>
+
+        <div id="senryu-form">
+            <div class="form-group">
+                <input id="first-sentence" type="text" class="form-control" placeholder="五">
+                <input id="second-sentence" type="text" class="form-control" placeholder="七">
+                <input id="third-sentence" type="text" class="form-control" placeholder="五">
+                <input id="author-name" type="text" class="form-control" placeholder="作者">
+                <button id="senryu-create-button" class="btn btn-success btn-block btn-lg">作成</button>
+            </div>
+
+        </div>
+
+        <div id="modal-main">
+            <img id="senryu-image-preview">
+
+            <div id="result-ui">
+                <div id="close-modal-button">close</div>
+                <div id="download-button">download</div>
+                <div id="twitter-share-button">twitter</div>
+            </div>
+        </div>
+        <img id="senryu-image" style="display: none" src="">
+
+    </div>
+</body>
+
+</html>
