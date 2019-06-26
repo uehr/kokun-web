@@ -1,4 +1,4 @@
-const downloadFileName = "senryu.png"
+const downloadFileName = "kokun.png"
 
 $(document).ready(function () {
     $("#download-button").click(() => {
