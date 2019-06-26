@@ -36,3 +36,23 @@ h1,h2,h3,h4,h5,h6 {
 .headline:after {
 	margin-left: .3em;
 }
+
+.example-image {
+    height: 60vh;
+    width: auto;
+}
+
+.swiper-container {
+    background-color: var(--body-color1);
+    padding-bottom: 5vh !important;
+}
+
+.swiper-slide {
+    text-align: center;
+}
+
+/* 全体のスタイル */
+.swiper-wrapper {
+	width: 100%;
+	height: 250px;
+}
