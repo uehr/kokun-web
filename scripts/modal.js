@@ -6,7 +6,7 @@ function showResultModal() {
         $("#modal-bg,#modal-main").fadeIn("slow");
     })
 
-    $("#close-modal-button").click(() => {
+    $("#close-modal-button,#modal-bg").click(() => {
         removeResultModal()
     })
 }
