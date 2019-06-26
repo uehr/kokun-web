@@ -1,4 +1,4 @@
-const apiEndpoint = "http://localhost:12345/senryu"
+const apiEndpoint = "https://kokun.herokuapp.com/senryu"
 
 function getSenryuImage(firstSentence, secondSentence, thirdSentence, authorName) {
     const postSenryu = {
