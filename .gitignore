@@ -1,1 +1,4 @@
 .DS_Store
+vendor/github.com
+handler/uploadTwitter.go
+vendor/golang.org
