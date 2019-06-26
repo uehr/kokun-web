@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"unicode/utf8"
 
 	"github.com/uehr/kokun/imageProcess"
 	"github.com/uehr/kokun/senryu"
@@ -20,6 +21,25 @@ type SenryuResponse struct {
 	base64Img string
 }
 
+const FirstSentenceMaxLength = 10
+const SecondSentenceMaxLength = 10
+const ThirdSentenceMaxLength = 10
+const AuthorNameMaxLength = 15
+
+func returnRequestEntityTooLarge(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusRequestEntityTooLarge)
+	w.Write([]byte("☄ HTTP status code returned!"))
+}
+
+func isValidLengthSenryu(sen *senryu.Senryu) bool {
+	firstSentenceLength := utf8.RuneCountInString(sen.FirstSentence)
+	secondSentenceLength := utf8.RuneCountInString(sen.SecondSentence)
+	thirdSentenceLength := utf8.RuneCountInString(sen.ThirdSentence)
+	authorNameLength := utf8.RuneCountInString(sen.AuthorName)
+
+	return firstSentenceLength <= FirstSentenceMaxLength && secondSentenceLength <= SecondSentenceMaxLength && thirdSentenceLength <= ThirdSentenceMaxLength && authorNameLength <= AuthorNameMaxLength
+}
+
 func SenryuApi(w http.ResponseWriter, req *http.Request) {
 	method := req.Method
 
@@ -34,9 +54,13 @@ func SenryuApi(w http.ResponseWriter, req *http.Request) {
 		var sen senryu.Senryu
 		json.Unmarshal([]byte(string(body)), &sen)
 
+		if !isValidLengthSenryu(&sen) {
+			returnRequestEntityTooLarge(w, req)
+			return
+		}
+
 		option := senryu.SenryuImageOption{}
 		senryuImage, err := senryu.CreateImage(&sen, &option)
-
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
