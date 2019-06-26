@@ -17,14 +17,18 @@ $(document).ready(function () {
 
         getSenryuImage(first, second, third, author).then(res => {
             $("#senryu-image").attr("src", "data:image/png;base64," + res.base64Img)
-            $("#senryu-image-preview").attr("src", "data:image/png;base64," + res.base64Img)
 
             $("#first-sentence").val("")
             $("#second-sentence").val("")
             $("#third-sentence").val("")
             $("#author-name").val("")
 
-            showResultModal()
+            new Promise(next => {
+                next($("#senryu-image-preview").attr("src", "data:image/png;base64," + res.base64Img))
+            }).then(next => {
+                showResultModal()
+            })
+
         }).catch(err => {
             alert("生成に失敗しました")
         })

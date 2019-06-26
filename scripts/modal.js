@@ -1,6 +1,7 @@
 function showResultModal() {
     new Promise(resolve => {
-        resole($("body").append('<div id="modal-bg"></div>'));
+        modalResize()
+        resolve($("body").append('<div id="modal-bg"></div>'));
     }).then(res => {
         $("#modal-bg,#modal-main").fadeIn("slow");
     })
