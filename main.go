@@ -15,6 +15,7 @@ func main() {
 	}
 
 	http.HandleFunc("/senryu", handler.SenryuApi)
+	// http.HandleFunc("/upload-twitter", handler.UploadTwitter)
 
 	http.Handle("/", http.FileServer(http.Dir("views")))
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))

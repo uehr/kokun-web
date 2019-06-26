@@ -1,7 +1,6 @@
 #senryu-image-preview {
-    height: 85vh;
+	height: 80vh;
     width: auto;
-    float: left;
 }
 
 .page-txt {
@@ -10,25 +9,26 @@
 }
 
 #close-modal-button {
-    height: 100px;
-    width: 100px;
-    background-color: greenyellow;
+    height: 10vh;
+    width: auto;
+	padding: 5%;
+	background-color: var(--body-color1);
 }
 
 #twitter-share-button {
     height: 100px;
     width: 100px;
-    background-color: cyan;
+	background-color: var(--body-color1);
 }
 
 #download-button {
-    height: 100px;
-    width: 100px;
-    background-color: red;
+	height: 10vh;
+	padding: 5%;
+    width: auto;
+	background-color: var(--body-color1);
 }
 
 #result-ui {
-    float: left;
 }
 
 .button:hover {
@@ -44,6 +44,16 @@
     z-index: 100;
 }
 
+/* #download-icon {
+	width: 100%;
+	height: auto;
+}
+
+#back-icon {
+	width: 100%;
+	height: auto;
+}
+ */
 #modal-bg {
 	display:none;
 	width:100%;
