@@ -31,6 +31,10 @@
     float: left;
 }
 
+.button:hover {
+	cursor: pointer;
+}
+
 #modal-main {
 	display: none;
 	height: 85vh;
