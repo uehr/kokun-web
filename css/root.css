@@ -13,6 +13,27 @@ body {
     min-height: 100vh;
 }
 
+p {
+    color: white;
+}
+
+a {
+    text-decoration:none;
+    color: var(--theme-color);
+    opacity:0.9;
+}
+
+a:hover {
+    color: var(--theme-color);
+    text-decoration:none;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+*::selection {
+  background: var(--theme-color);
+}
+
 html {
     overflow-y: scroll;
     overscroll-behavior: none;
